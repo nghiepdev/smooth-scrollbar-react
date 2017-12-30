@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SmoothScrollbar from 'smooth-scrollbar';
 import OverscrollPlugin from 'smooth-scrollbar/plugins/overscroll';
+
 SmoothScrollbar.use(OverscrollPlugin);
 
 class Scrollbar extends React.Component {
@@ -67,26 +68,33 @@ class Scrollbar extends React.Component {
 
   render() {
     const { children } = this.props;
-
     const count = React.Children.count(children);
 
-    return count === 1 && typeof children.type === 'string'
-      ? React.cloneElement(children, {
-          ref: node => (this.container = node),
-        })
-      : React.createElement(
-          'div',
-          {
-            ref: node => (this.container = node),
-            style: {
-              WebkitBoxFlex: 1,
-              msFlex: 1,
-              MozFlex: 1,
-              flex: 1,
-            },
-          },
-          children
-        );
+    if (count === 1 && typeof children.type === 'string') {
+      return React.cloneElement(children, {
+        ref: node => (this.container = node),
+      });
+    }
+
+    return React.createElement(
+      'div',
+      {
+        ref: node => (this.container = node),
+        style: {
+          WebkitBoxFlex: 1,
+          msFlex: 1,
+          MozFlex: 1,
+          flex: 1,
+        },
+      },
+      React.createElement(
+        'div',
+        {
+          className: 'scroll-content-inner',
+        },
+        children
+      )
+    );
   }
 }
 

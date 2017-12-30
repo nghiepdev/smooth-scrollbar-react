@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Scrollbar from '..';
+import Scrollbar from '../index';
 
 class App extends React.Component {
   handleScroll = (status, scrollbar) => console.log(status, scrollbar);
@@ -26,17 +26,17 @@ class App extends React.Component {
             innerRef={node => (this.scrollbar = node)}
             onScroll={this.handleScroll}
           >
-            {Array(50)
-              .fill(1)
-              .map((value, index) => <div key={index}>{value + index}</div>)}
+            {[...Array(50).keys()].map((value, index) => (
+              <div key={index}>{value + index}</div>
+            ))}
           </Scrollbar>
         </div>
 
         <Scrollbar>
           <div className="sample-container-2" style={{ maxHeight: 250 }}>
-            {Array(40)
-              .fill(1)
-              .map((value, index) => <div key={index}>{value + index}</div>)}
+            {[...Array(40).keys()].map((value, index) => (
+              <div key={index}>{value + index}</div>
+            ))}
           </div>
         </Scrollbar>
       </div>

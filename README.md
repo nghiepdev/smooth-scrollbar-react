@@ -95,7 +95,7 @@ render() {
   ...
 ```
 
-### Sample 2: (Using `display: flex`)
+### Sample 2: Recommended(Using `display: flex`)
 
 ```js
   import Scrollbar from 'smooth-scrollbar-react';

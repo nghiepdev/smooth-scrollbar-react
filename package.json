@@ -1,6 +1,6 @@
 {
   "name": "smooth-scrollbar-react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A wrapper for smooth-scrollbar to React Component",
   "author": "Nghiệp<me@nghiepit.pro>",
   "homepage": "http://smooth-scrollbar-react.surge.sh",
