@@ -1,6 +1,6 @@
 {
   "name": "smooth-scrollbar-react",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A wrapper for smooth-scrollbar to React Component",
   "author": "Nghiệp<me@nghiepit.pro>",
   "homepage": "http://smooth-scrollbar-react.surge.sh",
@@ -32,20 +32,23 @@
   },
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server",
-    "build":
-      "cross-env NODE_ENV=production ./node_modules/.bin/webpack --progress --profile -p",
-    "demo":
-      "npm run build && mv bundle.js examples/ && surge examples --domain smooth-scrollbar-react.surge.sh",
-    "dist":
-      "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config webpack.dist.config.js --progress --profile -p"
+    "build": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --progress --profile -p",
+    "demo": "npm run build && mv bundle.js examples/ && surge examples --domain smooth-scrollbar-react.surge.sh",
+    "lib": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config webpack.lib.config.js --progress --profile -p",
+    "prepublish": "npm run lib"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tronghiep92/smooth-scrollbar-react.git"
+    "url": "git+https://github.com/nghiepit/smooth-scrollbar-react.git"
   },
   "bugs": {
-    "url": "https://github.com/tronghiep92/smooth-scrollbar-react/issues"
+    "url": "https://github.com/nghiepit/smooth-scrollbar-react/issues"
   },
-  "keywords": ["react", "scroll", "scrollbar", "smooth"],
+  "keywords": [
+    "react",
+    "scroll",
+    "scrollbar",
+    "smooth"
+  ],
   "license": "MIT"
 }
