@@ -24,7 +24,7 @@ class Scrollbar extends React.Component {
   };
 
   componentDidMount() {
-    this.scrollbar = SmoothScrollbar.init(this.container);
+    this.scrollbar = SmoothScrollbar.init(this.container, this.props);
 
     this.scrollbar.addListener(this.handleScroll.bind(this));
 
@@ -58,6 +58,7 @@ class Scrollbar extends React.Component {
     if (this.scrollbar) {
       this.scrollbar.destroy();
     }
+    this.scrollbar = null;
   }
 
   handleScroll(status) {

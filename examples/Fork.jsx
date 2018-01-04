@@ -2,7 +2,7 @@ import React from 'react';
 
 export default () => (
   <a
-    href="https://github.com/tronghiep92/smooth-scrollbar-react"
+    href="https://github.com/nghiepit/smooth-scrollbar-react"
     style={{
       position: 'fixed',
       top: 0,

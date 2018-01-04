@@ -1,6 +1,6 @@
 # SMOOTH-SCROLLBAR-REACT
 
-A wrapper for [smooth-scrollbar](https://github.com/idiotWu/react-smooth-scrollbar) to React Component.
+A wrapper for [smooth-scrollbar](https://github.com/idiotWu/smooth-scrollbar) to React Component.
 
 [![NPM version](https://img.shields.io/npm/v/smooth-scrollbar-react.svg)](https://www.npmjs.com/package/smooth-scrollbar-react)
 [![NPM monthly download](https://img.shields.io/npm/dm/smooth-scrollbar-react.svg)](https://www.npmjs.com/package/smooth-scrollbar-react)
@@ -62,8 +62,7 @@ render() {
   return
   <div className="App">
     <div className="list-data">
-      {Array(20)
-        .fill(1)
+      {[...Array(20).keys()]
         .map((value, index) => <div key={index}>{value + index}</div>)}
     </div>
   </div>
@@ -71,7 +70,7 @@ render() {
 ...
 ```
 
-### Sample 1:
+### Option 1:
 
 ```js
   import Scrollbar from 'smooth-scrollbar-react';
@@ -85,8 +84,7 @@ render() {
           className="list-data"
           style={{ height: '200px' }}
         >
-          {Array(20)
-            .fill(1)
+          {[...Array(20).keys()]
             .map((value, index) => <div key={index}>{value + index}</div>)}
         </div>
       </Scrollbar>
@@ -95,7 +93,7 @@ render() {
   ...
 ```
 
-### Sample 2: Recommended(Using `display: flex`)
+### Option 2: Recommended(Using `display: flex`)
 
 ```js
   import Scrollbar from 'smooth-scrollbar-react';
@@ -106,8 +104,7 @@ render() {
     <div className="App">
       <div className="list-data" style={{ display: 'flex', maxHeight: '200px' }}>
         <Scrollbar>
-          {Array(20)
-            .fill(1)
+          {[...Array(20).keys()]
             .map((value, index) => <div key={index}>{value + index}</div>)}
         </Scrollbar>
       </div>
