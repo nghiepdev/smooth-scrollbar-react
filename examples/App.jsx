@@ -32,7 +32,7 @@ class App extends React.Component {
           </Scrollbar>
         </div>
 
-        <Scrollbar alwaysShowTracks={true} overscroll={false}>
+        <Scrollbar alwaysShowTracks={true} className="custom-class">
           <div className="sample-container-2" style={{ maxHeight: 250 }}>
             {[...Array(40).keys()].map((value, index) => (
               <div key={index}>{value + index}</div>

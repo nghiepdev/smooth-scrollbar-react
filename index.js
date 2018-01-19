@@ -68,11 +68,25 @@ class Scrollbar extends React.Component {
   }
 
   render() {
-    const { children } = this.props;
+    const {
+      damping,
+      thumbMinSize,
+      syncCallbacks,
+      renderByPixels,
+      alwaysShowTracks,
+      continuousScrolling,
+      plugins,
+      onScroll,
+      children,
+      innerRef,
+      ...others
+    } = this.props;
+
     const count = React.Children.count(children);
 
     if (count === 1 && typeof children.type === 'string') {
       return React.cloneElement(children, {
+        ...others,
         ref: node => (this.container = node),
       });
     }
@@ -80,6 +94,7 @@ class Scrollbar extends React.Component {
     return React.createElement(
       'div',
       {
+        ...others,
         ref: node => (this.container = node),
         style: {
           WebkitBoxFlex: 1,

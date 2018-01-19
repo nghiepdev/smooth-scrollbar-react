@@ -57,3 +57,7 @@ button {
 h4 {
   margin: 10px 0 20px;
 }
+
+.scroll-content:hover ~ .scrollbar-track {
+  opacity: 1;
+}
