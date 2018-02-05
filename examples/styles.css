@@ -58,6 +58,20 @@ h4 {
   margin: 10px 0 20px;
 }
 
+.scrollbar-track-x,
+.scrollbar-thumb-x {
+  height: 5px !important;
+}
+
+.scrollbar-track-y,
+.scrollbar-thumb-y {
+  width: 5px !important;
+}
+
 .scroll-content:hover ~ .scrollbar-track {
   opacity: 1;
+}
+
+.custom-class {
+  background: #fff;
 }

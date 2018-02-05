@@ -22,9 +22,9 @@
     "cross-env": "^5.1.3",
     "css-loader": "^0.28.9",
     "extract-text-webpack-plugin": "^3.0.2",
-    "style-loader": "^0.19.1",
+    "style-loader": "^0.20.1",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.11.0"
+    "webpack-dev-server": "^2.11.1"
   },
   "peerDependencies": {
     "prop-types": "^15.0.0 || ^16.0.0",
@@ -33,12 +33,9 @@
   },
   "scripts": {
     "dev": "./node_modules/.bin/webpack-dev-server",
-    "build":
-      "cross-env NODE_ENV=production ./node_modules/.bin/webpack --progress --profile -p",
-    "demo":
-      "npm run build && mv bundle.js examples/ && surge examples --domain smooth-scrollbar-react.surge.sh",
-    "lib":
-      "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config webpack.lib.config.js --progress --profile -p",
+    "build": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --progress --profile -p",
+    "demo": "npm run build && mv bundle.js examples/ && surge examples --domain smooth-scrollbar-react.surge.sh",
+    "lib": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config webpack.lib.config.js --progress --profile -p",
     "prepublish": "npm run lib"
   },
   "repository": {
@@ -48,6 +45,11 @@
   "bugs": {
     "url": "https://github.com/nghiepit/smooth-scrollbar-react/issues"
   },
-  "keywords": ["react", "scroll", "scrollbar", "smooth"],
+  "keywords": [
+    "react",
+    "scroll",
+    "scrollbar",
+    "smooth"
+  ],
   "license": "MIT"
 }
