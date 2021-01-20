@@ -3,7 +3,7 @@
 A wrapper for [smooth-scrollbar](https://github.com/idiotWu/smooth-scrollbar) to React Component.
 
 [![NPM version](https://img.shields.io/npm/v/smooth-scrollbar-react.svg)](https://www.npmjs.com/package/smooth-scrollbar-react)
-[![NPM monthly download](https://img.shields.io/npm/dm/smooth-scrollbar-react.svg)](https://www.npmjs.com/package/smooth-scrollbar-react)
+[![NPM yearly download](https://img.shields.io/npm/dy/smooth-scrollbar-react.svg)](https://www.npmjs.com/package/smooth-scrollbar-react)
 
 ## Demo
 
@@ -115,4 +115,4 @@ render() {
 
 ## License
 
-MIT © [Nghiệp](http://nghiepit.pro)
+MIT © [Nghiep](http://nghiepit.dev)

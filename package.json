@@ -2,15 +2,7 @@
   "name": "smooth-scrollbar-react",
   "version": "1.0.0",
   "description": "A wrapper for smooth-scrollbar to React Component",
-  "author": "Nghiệp<me@nghiepit.pro>",
-  "homepage": "http://smooth-scrollbar-react.surge.sh",
   "main": "index.min.js",
-  "dependencies": {
-    "prop-types": "^15.6.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "smooth-scrollbar": "^8.2.5"
-  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -24,7 +16,11 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "style-loader": "^0.20.1",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.11.1"
+    "webpack-dev-server": "^2.11.1",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "smooth-scrollbar": "^8.2.5"
   },
   "peerDependencies": {
     "prop-types": "^15.0.0 || ^16.0.0",
@@ -38,6 +34,7 @@
     "lib": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --config webpack.lib.config.js --progress --profile -p",
     "prepublish": "npm run lib"
   },
+  "homepage": "https://github.com/nghiepit/smooth-scrollbar-react",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nghiepit/smooth-scrollbar-react.git"
@@ -51,5 +48,6 @@
     "scrollbar",
     "smooth"
   ],
+  "author": "Nghiep <me@nghiepit.dev>",
   "license": "MIT"
 }
