@@ -7,20 +7,20 @@ A wrapper for [smooth-scrollbar](https://github.com/idiotWu/smooth-scrollbar) to
 
 ## Demo
 
-http://smooth-scrollbar-react.surge.sh
+https://codesandbox.io/s/smooth-scrollbar-react-4pu86
 
 ## Installation
 
 To install the stable version you can use:
 
 ```sh
-$ yarn add smooth-scrollbar-react
+$ yarn add smooth-scrollbar smooth-scrollbar-react
 ```
 
 ## Usage
 
 ```js
-import Scrollbar from 'smooth-scrollbar-react';
+import {Scrollbar} from 'smooth-scrollbar-react';
 ```
 
 ```jsx
@@ -73,7 +73,7 @@ render() {
 ### Option 1:
 
 ```js
-  import Scrollbar from 'smooth-scrollbar-react';
+  import {Scrollbar} from 'smooth-scrollbar-react';
 
   ...
   render() {
@@ -96,7 +96,7 @@ render() {
 ### Option 2: Recommended(Using `display: flex`)
 
 ```js
-  import Scrollbar from 'smooth-scrollbar-react';
+  import {Scrollbar} from 'smooth-scrollbar-react';
 
   ...
   render() {
