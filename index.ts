@@ -1,4 +1,4 @@
-import React, {forwardRef, useEffect, useRef} from 'react';
+import React, {forwardRef, useEffect, useCallback, useRef} from 'react';
 import {isElement} from 'react-is';
 import SmoothScrollbar from 'smooth-scrollbar';
 import {Scrollbar} from 'smooth-scrollbar/scrollbar';
@@ -15,58 +15,62 @@ export type ScrollbarProps = Partial<ScrollbarOptions> &
   }>;
 
 const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
-  function SmoothScrollbarReact(props, _ref) {
+  function SmoothScrollbarReact(props, ref) {
     const container = useRef<HTMLDivElement>(null!);
-
-    let ref: React.MutableRefObject<Scrollbar> = _ref as any;
+    const scrollbar = useRef<Scrollbar>(null!);
 
     const {children, className, style, onScroll, ...restProps} = props;
 
-    useEffect(() => {
-      const scrollbar = SmoothScrollbar.init(container.current, restProps);
-
+    const assignForwardRef = useCallback(() => {
       if (ref) {
-        (ref as React.MutableRefObject<Scrollbar>).current = scrollbar;
-      } else {
-        ref = {
-          current: scrollbar,
-        };
+        (ref as React.MutableRefObject<Scrollbar>).current = scrollbar.current;
       }
+    }, [ref]);
+
+    useEffect(() => {
+      scrollbar.current = SmoothScrollbar.init(container.current, restProps);
 
       const handleScroll = (status: ScrollStatus) => {
         if (typeof onScroll === 'function') {
-          onScroll(status, ref.current);
+          onScroll(status, scrollbar.current);
         }
       };
 
-      ref.current.addListener(handleScroll);
+      scrollbar.current.addListener(handleScroll);
+
+      assignForwardRef();
 
       return () => {
-        ref.current.removeListener(handleScroll);
-        ref.current.destroy();
+        scrollbar.current.removeListener(handleScroll);
+        scrollbar.current.destroy();
+        assignForwardRef();
       };
     }, []);
 
     useEffect(() => {
-      Object.keys(restProps).forEach(key => {
-        if (!(key in ref.current.options)) {
-          return;
-        }
+      if (scrollbar.current) {
+        Object.keys(restProps).forEach(key => {
+          if (!(key in scrollbar.current.options)) {
+            return;
+          }
 
-        if (key === 'plugins') {
-          Object.keys(restProps.plugins).forEach(pluginName => {
-            ref.current.updatePluginOptions(
-              pluginName,
-              restProps.plugins[pluginName]
-            );
-          });
-        } else {
-          ref.current.options[key] = restProps[key];
-        }
-      });
+          if (key === 'plugins') {
+            Object.keys(restProps.plugins).forEach(pluginName => {
+              scrollbar.current.updatePluginOptions(
+                pluginName,
+                restProps.plugins[pluginName]
+              );
+            });
+          } else {
+            scrollbar.current.options[key] = restProps[key];
+          }
+        });
 
-      ref.current.update();
-    }, [restProps]);
+        scrollbar.current.update();
+
+        assignForwardRef();
+      }
+    }, [restProps, assignForwardRef]);
 
     const count = React.Children.count(children);
 
