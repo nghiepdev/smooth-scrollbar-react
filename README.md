@@ -14,7 +14,7 @@ https://codesandbox.io/s/smooth-scrollbar-react-4pu86
 To install the stable version you can use:
 
 ```sh
-$ yarn add smooth-scrollbar smooth-scrollbar-react
+$ yarn add react-is smooth-scrollbar smooth-scrollbar-react
 ```
 
 ## Usage
