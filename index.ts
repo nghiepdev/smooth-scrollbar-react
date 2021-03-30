@@ -10,6 +10,7 @@ SmoothScrollbar.use(OverscrollPlugin);
 export type ScrollbarProps = Partial<ScrollbarOptions> &
   React.PropsWithChildren<{
     className?: string;
+    style?: React.CSSProperties;
     onScroll?: (status: ScrollStatus, scrollbar: Scrollbar | null) => void;
   }>;
 
@@ -19,7 +20,7 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
 
     let ref: React.MutableRefObject<Scrollbar> = _ref as any;
 
-    const {onScroll, children, ...restProps} = props;
+    const {children, className, style, onScroll, ...restProps} = props;
 
     useEffect(() => {
       const scrollbar = SmoothScrollbar.init(container.current, restProps);
@@ -47,41 +48,48 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
     }, []);
 
     useEffect(() => {
-      Object.keys(props).forEach(key => {
+      Object.keys(restProps).forEach(key => {
         if (!(key in ref.current.options)) {
           return;
         }
 
         if (key === 'plugins') {
-          Object.keys(props.plugins).forEach(pluginName => {
+          Object.keys(restProps.plugins).forEach(pluginName => {
             ref.current.updatePluginOptions(
               pluginName,
-              props.plugins[pluginName]
+              restProps.plugins[pluginName]
             );
           });
         } else {
-          ref.current.options[key] = props[key];
+          ref.current.options[key] = restProps[key];
         }
       });
 
       ref.current.update();
-    }, [props]);
+    }, [restProps]);
 
     const count = React.Children.count(children);
 
     if (count === 1 && isElement(children)) {
       return React.cloneElement(children, {
-        ...restProps,
         ref: container,
+        className:
+          (children.props.className ? `${children.props.className} ` : '') +
+          className,
+        style: {
+          ...style,
+          ...children.props.style,
+        },
       });
     }
 
     return React.createElement(
       'div',
       {
-        ...restProps,
         ref: container,
+        className,
         style: {
+          ...style,
           WebkitBoxFlex: 1,
           msFlex: 1,
           MozFlex: 1,
