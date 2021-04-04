@@ -1,9 +1,18 @@
-import React, {forwardRef, useEffect, useCallback, useRef} from 'react';
+import React, {
+  Children,
+  createElement,
+  cloneElement,
+  forwardRef,
+  useEffect,
+  useCallback,
+  useRef,
+} from 'react';
 import {isElement} from 'react-is';
 import SmoothScrollbar from 'smooth-scrollbar';
 import {Scrollbar} from 'smooth-scrollbar/scrollbar';
 import {ScrollbarOptions, ScrollStatus} from 'smooth-scrollbar/interfaces';
 import OverscrollPlugin from 'smooth-scrollbar/plugins/overscroll';
+import {Options} from 'smooth-scrollbar/options';
 
 SmoothScrollbar.use(OverscrollPlugin);
 
@@ -62,7 +71,8 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
               );
             });
           } else {
-            scrollbar.current.options[key] = restProps[key];
+            // @ts-ignore
+            scrollbar.current.options[key] = restProps[key as keyof Options];
           }
         });
 
@@ -72,10 +82,8 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
       }
     }, [restProps, assignForwardRef]);
 
-    const count = React.Children.count(children);
-
-    if (count === 1 && isElement(children)) {
-      return React.cloneElement(children, {
+    if (isElement(children) && 1 === Children.count(children)) {
+      return cloneElement(children, {
         ref: container,
         className:
           (children.props.className ? `${children.props.className} ` : '') +
@@ -87,7 +95,7 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
       });
     }
 
-    return React.createElement(
+    return createElement(
       'div',
       {
         ref: container,
@@ -100,7 +108,7 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
           flex: 1,
         },
       },
-      React.createElement(
+      createElement(
         'div',
         {
           className: 'scroll-content-inner',

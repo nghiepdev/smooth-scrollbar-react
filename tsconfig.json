@@ -7,8 +7,7 @@
     "jsx": "react",
     "declaration": true,
     "outDir": "./dist",
-    "strict": true,
-    "noImplicitAny": false
+    "strict": true
   },
   "include": ["index.ts"],
   "exclude": ["node_modules"]
