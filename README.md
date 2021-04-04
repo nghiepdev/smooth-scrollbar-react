@@ -115,4 +115,4 @@ render() {
 
 ## License
 
-MIT © [Nghiep](http://nghiepit.dev)
+MIT
