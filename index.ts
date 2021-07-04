@@ -6,8 +6,8 @@ import React, {
   useEffect,
   useCallback,
   useRef,
+  isValidElement,
 } from 'react';
-import {isElement} from 'react-is';
 import SmoothScrollbar from 'smooth-scrollbar';
 import {Scrollbar} from 'smooth-scrollbar/scrollbar';
 import {ScrollbarOptions, ScrollStatus} from 'smooth-scrollbar/interfaces';
@@ -82,7 +82,7 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
       }
     }, [restProps, assignForwardRef]);
 
-    if (isElement(children) && 1 === Children.count(children)) {
+    if (isValidElement(children) && 1 === Children.count(children)) {
       return cloneElement(children, {
         ref: container,
         className:

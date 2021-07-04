@@ -3,7 +3,7 @@
 A wrapper for [smooth-scrollbar](https://github.com/idiotWu/smooth-scrollbar) to React Component.
 
 [![NPM version](https://img.shields.io/npm/v/smooth-scrollbar-react.svg)](https://www.npmjs.com/package/smooth-scrollbar-react)
-[![NPM yearly download](https://img.shields.io/npm/dy/smooth-scrollbar-react.svg)](https://www.npmjs.com/package/smooth-scrollbar-react)
+[![NPM monthly download](https://img.shields.io/npm/dm/smooth-scrollbar-react.svg)](https://www.npmjs.com/package/smooth-scrollbar-react)
 
 ## Demo
 
@@ -14,7 +14,7 @@ https://codesandbox.io/s/smooth-scrollbar-react-4pu86
 To install the stable version you can use:
 
 ```sh
-$ yarn add react-is smooth-scrollbar smooth-scrollbar-react
+$ yarn add smooth-scrollbar smooth-scrollbar-react
 ```
 
 ## Usage
@@ -56,61 +56,58 @@ import {Scrollbar} from 'smooth-scrollbar-react';
 
 ### Original code:
 
-```js
-...
-render() {
-  return
-  <div className="App">
-    <div className="list-data">
-      {[...Array(20).keys()]
-        .map((value, index) => <div key={index}>{value + index}</div>)}
+```jsx
+function App() {
+  return (
+    <div className='App'>
+      <div className='list-data'>
+        {[...Array(20).keys()].map((value, index) => (
+          <div key={index}>{value + index}</div>
+        ))}
+      </div>
     </div>
-  </div>
+  );
 }
-...
 ```
 
 ### Option 1:
 
-```js
-  import {Scrollbar} from 'smooth-scrollbar-react';
+```jsx
+import {Scrollbar} from 'smooth-scrollbar-react';
 
-  ...
-  render() {
-    return
-    <div className="App">
+function App() {
+  return (
+    <div className='App'>
       <Scrollbar>
-        <div
-          className="list-data"
-          style={{ height: '200px' }}
-        >
-          {[...Array(20).keys()]
-            .map((value, index) => <div key={index}>{value + index}</div>)}
+        <div className='list-data' style={{height: '200px'}}>
+          {[...Array(20).keys()].map((value, index) => (
+            <div key={index}>{value + index}</div>
+          ))}
         </div>
       </Scrollbar>
     </div>
-  }
-  ...
+  );
+}
 ```
 
 ### Option 2: Recommended(Using `display: flex`)
 
-```js
-  import {Scrollbar} from 'smooth-scrollbar-react';
+```jsx
+import {Scrollbar} from 'smooth-scrollbar-react';
 
-  ...
-  render() {
-    return
-    <div className="App">
-      <div className="list-data" style={{ display: 'flex', maxHeight: '200px' }}>
+function App() {
+  return (
+    <div className='App'>
+      <div className='list-data' style={{display: 'flex', maxHeight: '200px'}}>
         <Scrollbar>
-          {[...Array(20).keys()]
-            .map((value, index) => <div key={index}>{value + index}</div>)}
+          {[...Array(20).keys()].map((value, index) => (
+            <div key={index}>{value + index}</div>
+          ))}
         </Scrollbar>
       </div>
     </div>
-  }
-  ...
+  );
+}
 ```
 
 ## License
