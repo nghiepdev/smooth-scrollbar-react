@@ -1,6 +1,6 @@
 {
   "name": "smooth-scrollbar-react",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "A wrapper for smooth-scrollbar to React Component",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
