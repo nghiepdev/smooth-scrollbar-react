@@ -11,8 +11,6 @@ https://codesandbox.io/s/smooth-scrollbar-react-4pu86
 
 ## Installation
 
-To install the stable version you can use:
-
 ```sh
 $ yarn add smooth-scrollbar smooth-scrollbar-react
 ```
@@ -25,16 +23,14 @@ import {Scrollbar} from 'smooth-scrollbar-react';
 
 ```jsx
 <Scrollbar
-    damping={number},
-    thumbMinSize={number},
-    syncCallbacks={boolean},
-    renderByPixels={boolean},
-    alwaysShowTracks={boolean},
-    continuousScrolling={boolean},
-    wheelEventTarget={element},
-    plugins={object},
-    onScroll={func},
->
+  damping={number}
+  thumbMinSize={number}
+  renderByPixels={boolean}
+  alwaysShowTracks={boolean}
+  continuousScrolling={boolean}
+  wheelEventTarget={element}
+  plugins={object}
+  onScroll={func}>
   your contents here...
 </Scrollbar>
 ```

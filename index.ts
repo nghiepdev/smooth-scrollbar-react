@@ -1,18 +1,16 @@
 import React, {
-  Children,
   createElement,
   cloneElement,
   forwardRef,
+  isValidElement,
   useEffect,
   useCallback,
   useRef,
-  isValidElement,
 } from 'react';
 import SmoothScrollbar from 'smooth-scrollbar';
 import {Scrollbar} from 'smooth-scrollbar/scrollbar';
 import {ScrollbarOptions, ScrollStatus} from 'smooth-scrollbar/interfaces';
 import OverscrollPlugin from 'smooth-scrollbar/plugins/overscroll';
-import {Options} from 'smooth-scrollbar/options';
 
 SmoothScrollbar.use(OverscrollPlugin);
 
@@ -23,68 +21,67 @@ export type ScrollbarProps = Partial<ScrollbarOptions> &
     onScroll?: (status: ScrollStatus, scrollbar: Scrollbar | null) => void;
   }>;
 
-const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
-  function SmoothScrollbarReact(props, ref) {
-    const container = useRef<HTMLDivElement>(null!);
+const SmoothScrollbarReact = forwardRef<Scrollbar | undefined, ScrollbarProps>(
+  function SmoothScrollbarReact(
+    {children, className, style, ...restProps},
+    ref
+  ) {
     const scrollbar = useRef<Scrollbar>(null!);
 
-    const {children, className, style, onScroll, ...restProps} = props;
+    const handleScroll = useCallback(
+      (status: ScrollStatus) => {
+        if (typeof restProps.onScroll === 'function') {
+          restProps.onScroll(status, scrollbar.current);
+        }
+      },
+      [restProps.onScroll]
+    );
 
-    const assignForwardRef = useCallback(() => {
-      if (ref) {
-        (ref as React.MutableRefObject<Scrollbar>).current = scrollbar.current;
+    const containerRef = useCallback(node => {
+      if (node instanceof HTMLElement) {
+        scrollbar.current = SmoothScrollbar.init(node, restProps);
+
+        scrollbar.current.addListener(handleScroll);
+
+        if (ref) {
+          (ref as React.MutableRefObject<Scrollbar>).current =
+            scrollbar.current;
+        }
       }
-    }, [ref]);
+    }, []);
 
     useEffect(() => {
-      scrollbar.current = SmoothScrollbar.init(container.current, restProps);
-
-      const handleScroll = (status: ScrollStatus) => {
-        if (typeof onScroll === 'function') {
-          onScroll(status, scrollbar.current);
-        }
-      };
-
-      scrollbar.current.addListener(handleScroll);
-
-      assignForwardRef();
-
       return () => {
         scrollbar.current.removeListener(handleScroll);
         scrollbar.current.destroy();
-        assignForwardRef();
       };
     }, []);
 
     useEffect(() => {
-      if (scrollbar.current) {
-        Object.keys(restProps).forEach(key => {
-          if (!(key in scrollbar.current.options)) {
-            return;
-          }
+      Object.keys(restProps).forEach(key => {
+        if (!(key in scrollbar.current.options)) {
+          return;
+        }
 
-          if (key === 'plugins') {
-            Object.keys(restProps.plugins).forEach(pluginName => {
-              scrollbar.current.updatePluginOptions(
-                pluginName,
-                restProps.plugins[pluginName]
-              );
-            });
-          } else {
-            // @ts-ignore
-            scrollbar.current.options[key] = restProps[key as keyof Options];
-          }
-        });
+        if (key === 'plugins') {
+          Object.keys(restProps.plugins).forEach(pluginName => {
+            scrollbar.current.updatePluginOptions(
+              pluginName,
+              restProps.plugins[pluginName]
+            );
+          });
+        } else {
+          // @ts-ignore
+          scrollbar.current.options[key] = restProps[key];
+        }
+      });
 
-        scrollbar.current.update();
+      scrollbar.current.update();
+    }, [restProps]);
 
-        assignForwardRef();
-      }
-    }, [restProps, assignForwardRef]);
-
-    if (isValidElement(children) && 1 === Children.count(children)) {
+    if (isValidElement(children)) {
       return cloneElement(children, {
-        ref: container,
+        ref: containerRef,
         className:
           (children.props.className ? `${children.props.className} ` : '') +
           className,
@@ -98,7 +95,7 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
     return createElement(
       'div',
       {
-        ref: container,
+        ref: containerRef,
         className,
         style: {
           ...style,
@@ -111,7 +108,7 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
       createElement(
         'div',
         {
-          className: 'scroll-content-inner',
+          className,
         },
         children
       )
