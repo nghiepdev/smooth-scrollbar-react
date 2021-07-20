@@ -8,17 +8,16 @@ import React, {
   useRef,
 } from 'react';
 import SmoothScrollbar from 'smooth-scrollbar';
-import {Scrollbar} from 'smooth-scrollbar/scrollbar';
-import {ScrollbarOptions, ScrollStatus} from 'smooth-scrollbar/interfaces';
+import type {Scrollbar} from 'smooth-scrollbar/scrollbar';
+import type {ScrollbarOptions, ScrollStatus} from 'smooth-scrollbar/interfaces';
+import type {
+  OverscrollOptions,
+  OverscrollEffect,
+} from 'smooth-scrollbar/plugins/overscroll';
 
 interface ScrollbarPlugin extends Record<string, unknown> {
-  overscroll?: Partial<
-    Omit<
-      import('smooth-scrollbar/plugins/overscroll').OverscrollOptions,
-      'effect'
-    >
-  > & {
-    effect?: `${import('smooth-scrollbar/plugins/overscroll').OverscrollEffect}`;
+  overscroll?: Partial<Omit<OverscrollOptions, 'effect'>> & {
+    effect?: `${OverscrollEffect}`;
   };
 }
 
