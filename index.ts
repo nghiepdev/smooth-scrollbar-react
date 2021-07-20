@@ -10,9 +10,8 @@ import React, {
 import SmoothScrollbar from 'smooth-scrollbar';
 import {Scrollbar} from 'smooth-scrollbar/scrollbar';
 import {ScrollbarOptions, ScrollStatus} from 'smooth-scrollbar/interfaces';
-import OverscrollPlugin from 'smooth-scrollbar/plugins/overscroll';
 
-SmoothScrollbar.use(OverscrollPlugin);
+SmoothScrollbar.use(require('smooth-scrollbar/dist/plugins/overscroll'));
 
 export type ScrollbarProps = Partial<ScrollbarOptions> &
   React.PropsWithChildren<{
