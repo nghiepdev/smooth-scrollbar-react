@@ -35,6 +35,8 @@ const SmoothScrollbarReact = forwardRef<Scrollbar | undefined, ScrollbarProps>(
     {children, className, style, ...restProps},
     ref
   ) {
+    const isInitialMount = useRef(true);
+
     const scrollbar = useRef<Scrollbar>(null!);
 
     const handleScroll = useCallback(
@@ -73,26 +75,30 @@ const SmoothScrollbarReact = forwardRef<Scrollbar | undefined, ScrollbarProps>(
     }, []);
 
     useEffect(() => {
-      if (scrollbar.current) {
-        Object.keys(restProps).forEach(key => {
-          if (!(key in scrollbar.current.options)) {
-            return;
-          }
+      if (isInitialMount.current) {
+        isInitialMount.current = false;
+      } else {
+        if (scrollbar.current) {
+          Object.keys(restProps).forEach(key => {
+            if (!(key in scrollbar.current.options)) {
+              return;
+            }
 
-          if (key === 'plugins') {
-            Object.keys(restProps.plugins).forEach(pluginName => {
-              scrollbar.current.updatePluginOptions(
-                pluginName,
-                restProps.plugins[pluginName]
-              );
-            });
-          } else {
-            // @ts-ignore
-            scrollbar.current.options[key] = restProps[key];
-          }
-        });
+            if (key === 'plugins') {
+              Object.keys(restProps.plugins).forEach(pluginName => {
+                scrollbar.current.updatePluginOptions(
+                  pluginName,
+                  restProps.plugins[pluginName]
+                );
+              });
+            } else {
+              // @ts-ignore
+              scrollbar.current.options[key] = restProps[key];
+            }
+          });
 
-        scrollbar.current.update();
+          scrollbar.current.update();
+        }
       }
     }, [restProps]);
 
