@@ -11,12 +11,22 @@ import SmoothScrollbar from 'smooth-scrollbar';
 import {Scrollbar} from 'smooth-scrollbar/scrollbar';
 import {ScrollbarOptions, ScrollStatus} from 'smooth-scrollbar/interfaces';
 
-SmoothScrollbar.use(require('smooth-scrollbar/dist/plugins/overscroll'));
+interface ScrollbarPlugin extends Record<string, unknown> {
+  overscroll?: Partial<
+    Omit<
+      import('smooth-scrollbar/plugins/overscroll').OverscrollOptions,
+      'effect'
+    >
+  > & {
+    effect?: `${import('smooth-scrollbar/plugins/overscroll').OverscrollEffect}`;
+  };
+}
 
 export type ScrollbarProps = Partial<ScrollbarOptions> &
   React.PropsWithChildren<{
     className?: string;
     style?: React.CSSProperties;
+    plugins?: ScrollbarPlugin;
     onScroll?: (status: ScrollStatus, scrollbar: Scrollbar | null) => void;
   }>;
 
@@ -36,10 +46,16 @@ const SmoothScrollbarReact = forwardRef<Scrollbar | undefined, ScrollbarProps>(
       [restProps.onScroll]
     );
 
-    const containerRef = useCallback(node => {
+    const containerRef = useCallback(async node => {
       if (node instanceof HTMLElement) {
-        scrollbar.current = SmoothScrollbar.init(node, restProps);
+        if (restProps.plugins?.overscroll) {
+          const {default: OverscrollPlugin} = await import(
+            'smooth-scrollbar/plugins/overscroll'
+          );
+          SmoothScrollbar.use(OverscrollPlugin);
+        }
 
+        scrollbar.current = SmoothScrollbar.init(node, restProps);
         scrollbar.current.addListener(handleScroll);
 
         if (ref) {
@@ -57,25 +73,27 @@ const SmoothScrollbarReact = forwardRef<Scrollbar | undefined, ScrollbarProps>(
     }, []);
 
     useEffect(() => {
-      Object.keys(restProps).forEach(key => {
-        if (!(key in scrollbar.current.options)) {
-          return;
-        }
+      if (scrollbar.current) {
+        Object.keys(restProps).forEach(key => {
+          if (!(key in scrollbar.current.options)) {
+            return;
+          }
 
-        if (key === 'plugins') {
-          Object.keys(restProps.plugins).forEach(pluginName => {
-            scrollbar.current.updatePluginOptions(
-              pluginName,
-              restProps.plugins[pluginName]
-            );
-          });
-        } else {
-          // @ts-ignore
-          scrollbar.current.options[key] = restProps[key];
-        }
-      });
+          if (key === 'plugins') {
+            Object.keys(restProps.plugins).forEach(pluginName => {
+              scrollbar.current.updatePluginOptions(
+                pluginName,
+                restProps.plugins[pluginName]
+              );
+            });
+          } else {
+            // @ts-ignore
+            scrollbar.current.options[key] = restProps[key];
+          }
+        });
 
-      scrollbar.current.update();
+        scrollbar.current.update();
+      }
     }, [restProps]);
 
     if (isValidElement(children)) {

@@ -74,7 +74,12 @@ import {Scrollbar} from 'smooth-scrollbar-react';
 function App() {
   return (
     <div className='App'>
-      <Scrollbar>
+      <Scrollbar
+        plugins={{
+          overscroll: {
+            effect: 'bounce',
+          },
+        }}>
         <div className='list-data' style={{height: '200px'}}>
           {[...Array(20).keys()].map((value, index) => (
             <div key={index}>{value + index}</div>
@@ -95,7 +100,12 @@ function App() {
   return (
     <div className='App'>
       <div className='list-data' style={{display: 'flex', maxHeight: '200px'}}>
-        <Scrollbar>
+        <Scrollbar
+          plugins={{
+            overscroll: {
+              effect: 'glow',
+            },
+          }}>
           {[...Array(20).keys()].map((value, index) => (
             <div key={index}>{value + index}</div>
           ))}
