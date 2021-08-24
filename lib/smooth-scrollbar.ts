@@ -18,7 +18,7 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
     {children, className, style, ...restProps},
     ref
   ) {
-    const mountedRef = useRef(true);
+    const mountedRef = useRef(false);
 
     const scrollbar = useRef<Scrollbar>(null!);
 
@@ -58,9 +58,7 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
     }, []);
 
     useEffect(() => {
-      if (mountedRef.current) {
-        mountedRef.current = false;
-      } else {
+      if (mountedRef.current === true) {
         if (scrollbar.current) {
           Object.keys(restProps).forEach(key => {
             if (!(key in scrollbar.current.options)) {
@@ -82,6 +80,8 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
 
           scrollbar.current.update();
         }
+      } else {
+        mountedRef.current = true;
       }
     }, [restProps]);
 
