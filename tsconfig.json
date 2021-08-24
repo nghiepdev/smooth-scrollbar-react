@@ -9,6 +9,5 @@
     "outDir": "./dist",
     "strict": true
   },
-  "include": ["index.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["dist"]
 }
