@@ -15,7 +15,7 @@ import {ScrollbarProps} from './types';
 
 const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
   function SmoothScrollbarReact(
-    {children, className, style, ...restProps},
+    {children, className, style, renderWithContainer, ...restProps},
     ref
   ) {
     const mountedRef = useRef(false);
@@ -85,7 +85,7 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
       }
     }, [restProps]);
 
-    if (isValidElement(children)) {
+    if (!renderWithContainer && isValidElement(children)) {
       return cloneElement(children, {
         ref: containerRef,
         className:

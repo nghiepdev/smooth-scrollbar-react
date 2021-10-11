@@ -17,4 +17,5 @@ export type ScrollbarProps = Partial<ScrollbarOptions> &
     style?: React.CSSProperties;
     plugins?: ScrollbarPlugin;
     onScroll?: (status: ScrollStatus, scrollbar: Scrollbar | null) => void;
+    renderWithContainer?: boolean;
   }>;
