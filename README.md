@@ -30,6 +30,7 @@ import {Scrollbar} from 'smooth-scrollbar-react';
   continuousScrolling={boolean}
   wheelEventTarget={element}
   plugins={object}
+  renderWithContainer={boolean}
   onScroll={func}>
   your contents here...
 </Scrollbar>
