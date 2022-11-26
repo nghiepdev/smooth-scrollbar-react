@@ -8,10 +8,10 @@
     "dist"
   ],
   "devDependencies": {
-    "@types/node": "^16.3.3",
-    "@types/react": "^17.0.3",
-    "smooth-scrollbar": "^8.6.2",
-    "typescript": "^4.2.3"
+    "@types/node": "^16.18.3",
+    "@types/react": "^17.0.52",
+    "smooth-scrollbar": "^8.8.1",
+    "typescript": "^4.9.3"
   },
   "peerDependencies": {
     "react": ">=16.8",
@@ -21,19 +21,19 @@
     "build": "tsc",
     "prepublishOnly": "npm run build"
   },
-  "homepage": "https://github.com/nghiepit/smooth-scrollbar-react",
+  "homepage": "https://github.com/nghiepdev/smooth-scrollbar-react",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nghiepit/smooth-scrollbar-react.git"
+    "url": "git+https://github.com/nghiepdev/smooth-scrollbar-react.git"
   },
   "bugs": {
-    "url": "https://github.com/nghiepit/smooth-scrollbar-react/issues"
+    "url": "https://github.com/nghiepdev/smooth-scrollbar-react/issues"
   },
   "keywords": [
     "scroll",
     "scrollbar",
     "scrollbar smooth"
   ],
-  "author": "Nghiep <me@nghiepit.dev>",
+  "author": "Nghiep <me@nghiep.dev>",
   "license": "MIT"
 }
