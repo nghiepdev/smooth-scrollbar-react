@@ -19,11 +19,10 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
     ref
   ) {
     const mountedRef = useRef(false);
-
     const scrollbar = useRef<Scrollbar>(null!);
 
-    const handleScroll = useCallback(
-      (status: ScrollStatus) => {
+    const handleScroll = useCallback<(status: ScrollStatus) => void>(
+      status => {
         if (typeof restProps.onScroll === 'function') {
           restProps.onScroll(status, scrollbar.current);
         }
@@ -31,29 +30,28 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
       [restProps.onScroll]
     );
 
-    const containerRef = useCallback(async node => {
+    const containerRef = useCallback(node => {
       if (node instanceof HTMLElement) {
-        if (restProps.plugins?.overscroll) {
-          const {default: OverscrollPlugin} = await import(
-            'smooth-scrollbar/plugins/overscroll'
-          );
-          SmoothScrollbar.use(OverscrollPlugin);
-        }
-
-        scrollbar.current = SmoothScrollbar.init(node, restProps);
-        scrollbar.current.addListener(handleScroll);
-
-        if (ref) {
-          (ref as React.MutableRefObject<Scrollbar>).current =
-            scrollbar.current;
-        }
+        (async () => {
+          if (restProps.plugins?.overscroll) {
+            const {default: OverscrollPlugin} = await import(
+              'smooth-scrollbar/plugins/overscroll'
+            );
+            SmoothScrollbar.use(OverscrollPlugin);
+          }
+          scrollbar.current = SmoothScrollbar.init(node, restProps);
+          scrollbar.current.addListener(handleScroll);
+        })();
       }
     }, []);
 
     useEffect(() => {
+      (ref as React.MutableRefObject<Scrollbar>).current = scrollbar.current;
       return () => {
-        scrollbar.current.removeListener(handleScroll);
-        scrollbar.current.destroy();
+        if (scrollbar.current) {
+          scrollbar.current.removeListener(handleScroll);
+          scrollbar.current.destroy();
+        }
       };
     }, []);
 
@@ -73,7 +71,7 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
                 );
               });
             } else {
-              // @ts-ignore
+              // @ts-expect-error
               scrollbar.current.options[key] = restProps[key];
             }
           });
@@ -86,7 +84,7 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
     }, [restProps]);
 
     if (isValidElement(children)) {
-      return cloneElement(children, {
+      return cloneElement(children as React.ReactElement, {
         ref: containerRef,
         className:
           (children.props.className ? `${children.props.className} ` : '') +
