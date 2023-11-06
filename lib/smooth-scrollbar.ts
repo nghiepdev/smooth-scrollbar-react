@@ -46,9 +46,6 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
     }, []);
 
     useEffect(() => {
-      if (ref) {
-        (ref as React.MutableRefObject<Scrollbar>).current = scrollbar.current;
-      }
       return () => {
         if (scrollbar.current) {
           scrollbar.current.removeListener(handleScroll);
@@ -56,6 +53,12 @@ const SmoothScrollbarReact = forwardRef<Scrollbar, ScrollbarProps>(
         }
       };
     }, []);
+
+    useEffect(() => {
+      if (ref) {
+        (ref as React.MutableRefObject<Scrollbar>).current = scrollbar.current;
+      }
+    }, [scrollbar.current]);
 
     useEffect(() => {
       if (mountedRef.current === true) {
